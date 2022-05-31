@@ -5,7 +5,7 @@ import sys
 
 credential = pika.PlainCredentials('receiver', 'thisisreceiver')
 connection = pika.BlockingConnection(
-    pika.ConnectionParameters(pika.ConnectionParameters(host='localhost',credentials=credential)))
+    pika.BlockingConnection(pika.ConnectionParameters(host='192.168.1.1', credentials=credential)))
 channel = connection.channel()
 
 channel.exchange_declare(exchange='bandwidthExperiment', exchange_type='fanout')
