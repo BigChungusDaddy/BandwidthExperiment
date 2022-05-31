@@ -27,7 +27,7 @@ class Sender:
 
     def sendMessages(self):
         print ("[x] Sending start.")
-        for currentIndex in range(7):
+        for currentIndex in range(8):
             currentMessage = self.messages[currentIndex]
             currentMessageSize = self.messageSize[currentIndex]
             for x in range(self.numOfRepeat):
