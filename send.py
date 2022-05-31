@@ -41,6 +41,7 @@ class Sender:
                     self.secToRun, 
                     currentMessageSize))
                 self.messageAmount = 0
+                print("[x] Now sleeping for 5 seconds.")
                 time.sleep(self.waitTime)
         print ("[x] Sending ends.")
         self.connection.close()
