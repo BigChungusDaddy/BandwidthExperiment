@@ -29,7 +29,7 @@ class Sender:
         print ("[x] Sending start.")
         for currentIndex in range(7):
             currentMessage = self.messages[currentIndex]
-            currentMessageSize = self.messages[currentIndex]
+            currentMessageSize = self.messageSize[currentIndex]
             for x in range(self.numOfRepeat):
                 endTime = time.time() + self.secToRun
                 while time.time() < endTime:
