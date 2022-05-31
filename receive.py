@@ -20,7 +20,7 @@ channel.queue_bind(exchange='bandwidthExperiment', queue=queue_name)
 print(' [*] Waiting for logs. To exit press CTRL+C')
 
 def callback(ch, method, properties, body):
-    accumulativeAmount += 1
+    print(body)
 
 channel.basic_consume(
     queue=queue_name, on_message_callback=callback, auto_ack=True)
