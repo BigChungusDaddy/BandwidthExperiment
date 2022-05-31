@@ -19,7 +19,7 @@ class Sender:
 
     
     # Create messages and store them in a queue.
-    def createMessage(messageSize):
+    def createMessage(self, messageSize):
         messages = []
         for eachSize in messageSize:
             messages.append('a' * eachSize)
