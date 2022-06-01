@@ -26,6 +26,10 @@ deb [signed-by=/usr/share/keyrings/io.packagecloud.rabbitmq.gpg] https://package
 deb-src [signed-by=/usr/share/keyrings/io.packagecloud.rabbitmq.gpg] https://packagecloud.io/rabbitmq/rabbitmq-server/ubuntu/ bionic main
 EOF
 
+wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb
+sudo dpkg -i erlang-solutions_1.0_all.deb
+sudo apt-get update
+
 ## Update package indices
 sudo apt-get update -y
 

@@ -16,7 +16,10 @@ class Sender:
             pika.ConnectionParameters(host='localhost'))
         self.channel = self.connection.channel()
         self.channel.exchange_declare(exchange = 'bandwidthExperiment', exchange_type='fanout')
-        self.header = ['Message Size in Bytes', 'Total Message Amount']
+        with open('data.csv','w', newline='') as datacsv:
+            header = ['Message Size in Bytes', 'Total Message Amount']
+            writer = csv.writer(datacsv)
+            writer.writerow(header)
 
     
     # Create messages and store them in a queue.
@@ -49,7 +52,7 @@ class Sender:
         self.connection.close()
     
     def logData(self, messageSize, messageAmount):
-        with open('data.csv','w', newline='') as datacsv:
+        with open('data.csv','a', newline='') as datacsv:
             writer = csv.writer(datacsv)
             row = [str(messageSize), str(messageAmount)]
             writer.writerow(row)
