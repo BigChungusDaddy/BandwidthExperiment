@@ -1,10 +1,10 @@
-import sys
+import csv
 import pika
 import time
 
 class Sender:
     def __init__(self):
-        self.messageSize = [64, 128, 256, 512, 1024, 2048, 4096, 8192]
+        self.messageSize = [256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072, 262144, 524288, 1048576]
         self.messages = self.createMessage(self.messageSize)
         # Interval of how much the sender needs to wait after finish one round of sending.
         self.waitTime = 5
@@ -16,6 +16,7 @@ class Sender:
             pika.ConnectionParameters(host='localhost'))
         self.channel = self.connection.channel()
         self.channel.exchange_declare(exchange = 'bandwidthExperiment', exchange_type='fanout')
+        self.header = ['Message Size in Bytes', 'Total Message Amount']
 
     
     # Create messages and store them in a queue.
@@ -27,7 +28,7 @@ class Sender:
 
     def sendMessages(self):
         print ("[x] Sending start.")
-        for currentIndex in range(8):
+        for currentIndex in range(len(self.messageSize)):
             currentMessage = self.messages[currentIndex]
             currentMessageSize = self.messageSize[currentIndex]
             for x in range(self.numOfRepeat):
@@ -40,11 +41,18 @@ class Sender:
                     self.messageAmount, 
                     self.secToRun, 
                     currentMessageSize))
+                self.logData(currentMessageSize, self.messageAmount)
                 self.messageAmount = 0
                 print("[x] Now sleeping for 5 seconds.")
                 time.sleep(self.waitTime)
         print ("[x] Sending ends.")
         self.connection.close()
+    
+    def logData(self, messageSize, messageAmount):
+        with open('data.csv','w', newline='') as datacsv:
+            writer = csv.writer(datacsv)
+            row = [str(messageSize), str(messageAmount)]
+            writer.writerow(row)
 
 sender = Sender()
 sender.sendMessages()
