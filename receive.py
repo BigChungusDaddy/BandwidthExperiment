@@ -3,10 +3,9 @@ import pika
 # Since we are testing the throughput, the consumer should not be a limiting factor, hence it will consume as fast as possible
 accumulativeAmount = 0
 
-csvHeader = ['Message Size in Bytes', 'Total Sent Messages Over ']
 credential = pika.PlainCredentials('receiver', 'thisisreceiver')
 connection = pika.BlockingConnection(
-    pika.ConnectionParameters(host='192.168.1.3', credentials=credential))
+            pika.ConnectionParameters(host='192.168.1.2', credentials=credential))
 channel = connection.channel()
 
 channel.exchange_declare(exchange='bandwidthExperiment', exchange_type='fanout')
