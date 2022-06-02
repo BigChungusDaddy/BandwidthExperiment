@@ -4,16 +4,17 @@ import time
 
 class Sender:
     def __init__(self):
-        self.messageSize = [256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072, 262144, 524288, 1048576]
+        self.messageSize = [256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072, 262144, 524288, 1048576, 2097152]
         self.messages = self.createMessage(self.messageSize)
         # Interval of how much the sender needs to wait after finish one round of sending.
         self.waitTime = 5
         self.secToRun = 5
-        self.numOfRepeat = 5
+        self.numOfRepeat = 100
         self.messageAmount = 0
+        self.credential = pika.PlainCredentials('sender', 'thisissender')
         # Need to change the connection parameter
         self.connection = pika.BlockingConnection(
-            pika.ConnectionParameters(host='localhost'))
+            pika.ConnectionParameters(host='192.168.1.2', credentials= self.credential))
         self.channel = self.connection.channel()
         self.channel.exchange_declare(exchange = 'bandwidthExperiment', exchange_type='fanout')
         with open('data.csv','w', newline='') as datacsv:
