@@ -11,6 +11,7 @@ class Sender:
         self.secToRun = 5
         self.numOfRepeat = 100
         self.messageAmount = 0
+        self.sendStarted = False
         self.credential = pika.PlainCredentials('sender', 'thisissender')
         # Need to change the connection parameter
         self.connection = pika.BlockingConnection(
@@ -38,6 +39,10 @@ class Sender:
             for x in range(self.numOfRepeat):
                 endTime = time.time() + self.secToRun
                 while time.time() < endTime:
+                    if not self.sendStarted:
+                        # Starting Message
+                        self.channel.basic_publish(exchange='bandwidthExperiment', routing_key = '', body = str(currentMessageSize))
+                        self.sendStarted = True
                     # Note: The rabbitmq server is responsible for flow control.
                     self.channel.basic_publish(exchange='bandwidthExperiment', routing_key = '', body = currentMessage)
                     self.messageAmount += 1
@@ -45,6 +50,10 @@ class Sender:
                     self.messageAmount, 
                     self.secToRun, 
                     currentMessageSize))
+                
+                self.channel.basic_publish(exchange='bandwidthExperiment', routing_key = '', body = 'x')
+                self.sendStarted = False
+
                 self.logData(currentMessageSize, self.messageAmount)
                 self.messageAmount = 0
                 print("[x] Now sleeping for 5 seconds.")
