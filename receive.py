@@ -32,8 +32,10 @@ def callback(ch, method, properties, body):
     global currentMessageSize
     # The beginning of one sending burst
     if len(body) == 3 or 4 or 5 or 6 or 7:
+        print(body)
+        print(len(body))
         startLogging = True
-        currentMessageSize = int(body)
+        currentMessageSize = len(body)
     # The end of one sending burst
     if len(body) == 1:
         startLogging = False
