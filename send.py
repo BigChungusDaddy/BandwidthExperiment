@@ -9,7 +9,7 @@ class Sender:
         # Interval of how much the sender needs to wait after finish one round of sending.
         self.waitTime = 5
         self.secToRun = 5
-        self.numOfRepeat = 3
+        self.numOfRepeat = 100
         self.messageAmount = 0
         self.sendStarted = False
         self.credential = pika.PlainCredentials('sender', 'thisissender')
