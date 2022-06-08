@@ -33,7 +33,7 @@ def callback(ch, method, properties, body):
     # The beginning of one sending burst
     if len(body) == 3 or len(body) == 4 or len(body) == 5 or len(body) == 6 or len(body) == 7:
         startLogging = True
-        currentMessageSize = int(str(body))
+        currentMessageSize = int(body.decode("utf-8"))
     # The end of one sending burst
     if len(body) == 1:
         startLogging = False
