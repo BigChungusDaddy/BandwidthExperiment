@@ -27,6 +27,9 @@ channel.queue_bind(exchange='bandwidthExperiment', queue=queue_name)
 print(' [*] Waiting for logs. To exit press CTRL+C')
 
 def callback(ch, method, properties, body):
+    global receivedAmount
+    global startLogging
+    global currentMessageSize
     # The beginning of one sending burst
     if len(body) == 3 or 4 or 5 or 6 or 7:
         startLogging = True
