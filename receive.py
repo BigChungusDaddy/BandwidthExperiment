@@ -53,7 +53,7 @@ def logData(messageSize, messageAmount):
         messageAmount, 
         messageSize))
 
-channel.basic_qos(prefetch_count=64)
+channel.basic_qos(prefetch_count=256)
 channel.basic_consume(
     queue=queue_name, on_message_callback=callback, auto_ack=True)
 
