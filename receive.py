@@ -14,7 +14,7 @@ with open('data.csv','w', newline='') as datacsv:
 
 credential = pika.PlainCredentials('receiver', 'thisisreceiver')
 connection = pika.BlockingConnection(
-            pika.ConnectionParameters(host='192.168.1.2', credentials=credential))
+            pika.ConnectionParameters(host='192.168.30.1', credentials=credential))
 channel = connection.channel()
 
 channel.exchange_declare(exchange='bandwidthExperiment', exchange_type='fanout')
