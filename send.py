@@ -4,12 +4,13 @@ import time
 
 class Sender:
     def __init__(self):
-        self.messageSize = [256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072, 262144, 524288, 1048576, 2097152]
+        # self.messageSize = [256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072, 262144, 524288, 1048576, 2097152]
+        self.messageSize = [4096, 8192, 16384, 32768, 65536, 131072, 262144, 524288]
         self.messages = self.createMessage(self.messageSize)
         # Interval of how much the sender needs to wait after finish one round of sending.
-        self.waitTime = 5
-        self.secToRun = 5
-        self.numOfRepeat = 100
+        self.waitTime = 0.1
+        self.secToRun = 1
+        self.numOfRepeat = 1000
         self.messageAmount = 0
         self.sendStarted = False
         self.credential = pika.PlainCredentials('sender', 'thisissender')
@@ -56,7 +57,7 @@ class Sender:
 
                 self.logData(currentMessageSize, self.messageAmount)
                 self.messageAmount = 0
-                print("[x] Now sleeping for 5 seconds.")
+                print("[x] Now sleeping for 0.1 seconds.")
                 time.sleep(self.waitTime)
         print ("[x] Sending ends.")
         self.connection.close()

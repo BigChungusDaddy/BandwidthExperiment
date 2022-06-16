@@ -27,8 +27,8 @@ channel.queue_bind(exchange='bandwidthExperiment', queue=queue_name)
 print(' [*] Waiting for logs. To exit press CTRL+C')
 
 def callback(ch, method, properties, body):
-    deliveryTag = method.delivery_tag
-    ch.basic_ack(delivery_tag = deliveryTag, multiple = True)
+    #deliveryTag = method.delivery_tag
+    #ch.basic_ack(delivery_tag = deliveryTag, multiple = True)
     global receivedAmount
     global startLogging
     global currentMessageSize
@@ -56,6 +56,6 @@ def logData(messageSize, messageAmount):
         messageSize))
 
 channel.basic_consume(
-    queue=queue_name, on_message_callback=callback, auto_ack= False)
+    queue=queue_name, on_message_callback=callback, auto_ack= True)
 
 channel.start_consuming()
