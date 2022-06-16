@@ -52,6 +52,7 @@ def callback(ch, method, properties, body):
     if timerStarted and time.time() >= previousTime + timerInterval:
         previousTime = time.time()
         logData(pastTime, receivedAmount)
+        receivedAmount = 0
         pastTime += 1
 
 
@@ -74,7 +75,7 @@ def logData(pastTime, messageAmount):
         writer = csv.writer(datacsv)
         row = [str(pastTime), str(messageAmount)]
         writer.writerow(row)
-    print("[x] Received %s messages in %s seconds." % (
+    print("[x] Received %s messages the past in %s seconds." % (
         messageAmount, 
         pastTime))
 
