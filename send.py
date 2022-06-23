@@ -46,7 +46,7 @@ class Sender:
                     #     self.sendStarted = True
                     # Note: The rabbitmq server is responsible for flow control.
                     self.channel.basic_publish(exchange='bandwidthExperiment', routing_key = '', body = currentMessage)
-                    self.messageAmount += 1
+                    # self.messageAmount += 1
                 print("[x] Sent %s messages in %s seconds, each message is %s bytes" % (
                     self.messageAmount, 
                     self.secToRun, 
