@@ -5,12 +5,12 @@ import time
 class Sender:
     def __init__(self):
         # self.messageSize = [256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072, 262144, 524288, 1048576, 2097152]
-        self.messageSize = [4096, 8192, 16384, 32768, 65536, 131072, 262144, 524288, 1048576]
+        self.messageSize = [4096]
         self.messages = self.createMessage(self.messageSize)
         # Interval of how much the sender needs to wait after finish one round of sending.
         self.waitTime = 0.1
-        self.secToRun = 10
-        self.numOfRepeat = 5
+        self.secToRun = 600
+        self.numOfRepeat = 1
         self.messageAmount = 0
         self.sendStarted = False
         self.credential = pika.PlainCredentials('sender', 'thisissender')
@@ -46,7 +46,7 @@ class Sender:
                     #     self.sendStarted = True
                     # Note: The rabbitmq server is responsible for flow control.
                     self.channel.basic_publish(exchange='bandwidthExperiment', routing_key = '', body = currentMessage)
-                    self.messageAmount += 1
+                    #self.messageAmount += 1
                 print("[x] Sent %s messages in %s seconds, each message is %s bytes" % (
                     self.messageAmount, 
                     self.secToRun, 
@@ -55,7 +55,7 @@ class Sender:
                 # self.channel.basic_publish(exchange='bandwidthExperiment', routing_key = '', body = 'x')
                 # self.sendStarted = False
 
-                self.logData(currentMessageSize, self.messageAmount)
+                #self.logData(currentMessageSize, self.messageAmount)
                 self.messageAmount = 0
                 #print("[x] Now sleeping for 0.1 seconds.")
                 #time.sleep(self.waitTime)
