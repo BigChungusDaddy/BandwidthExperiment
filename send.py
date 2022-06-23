@@ -8,9 +8,9 @@ class Sender:
         self.messageSize = [4096, 8192, 16384, 32768, 65536, 131072, 262144, 524288, 1048576]
         self.messages = self.createMessage(self.messageSize)
         # Interval of how much the sender needs to wait after finish one round of sending.
-        self.waitTime = 0.1
-        self.secToRun = 1200
-        self.numOfRepeat = 1
+        self.waitTime = 5
+        self.secToRun = 120
+        self.numOfRepeat = 10
         self.messageAmount = 0
         self.sendStarted = False
         self.credential = pika.PlainCredentials('sender', 'thisissender')
@@ -34,10 +34,10 @@ class Sender:
 
     def sendMessages(self):
         print ("[x] Sending start.")
-        for currentIndex in range(len(self.messageSize)):
-            currentMessage = self.messages[currentIndex]
-            currentMessageSize = self.messageSize[currentIndex]
-            for x in range(self.numOfRepeat):
+        for x in range(self.numOfRepeat):
+            for currentIndex in range(len(self.messageSize)):
+                currentMessage = self.messages[currentIndex]
+                currentMessageSize = self.messageSize[currentIndex]
                 endTime = time.time() + self.secToRun
                 while time.time() < endTime:
                     # if not self.sendStarted:
@@ -55,10 +55,10 @@ class Sender:
                 # self.channel.basic_publish(exchange='bandwidthExperiment', routing_key = '', body = 'x')
                 # self.sendStarted = False
 
-                self.logData(currentMessageSize, self.messageAmount)
+                # self.logData(currentMessageSize, self.messageAmount)
                 self.messageAmount = 0
-                #print("[x] Now sleeping for 0.1 seconds.")
-                #time.sleep(self.waitTime)
+                print("[x] Now sleeping for 5 seconds.")
+                time.sleep(self.waitTime)
         print ("[x] Sending ends.")
         self.connection.close()
     
