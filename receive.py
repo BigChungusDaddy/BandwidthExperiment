@@ -75,9 +75,10 @@ def logData(pastTime, messageAmount):
         writer = csv.writer(datacsv)
         row = [str(pastTime), str(messageAmount)]
         writer.writerow(row)
-    print("[x] Received %s messages the past in %s seconds." % (
+    print("[x] Received %s messages in the past 1 second. Elapsed %s seconds." % (
         messageAmount, 
         pastTime))
+    print("[x] There are %s messages remaining in the queue." % (result.method.message_count))
 
 channel.basic_qos(prefetch_count=1)
 channel.basic_consume(
