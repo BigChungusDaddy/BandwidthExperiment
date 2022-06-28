@@ -54,7 +54,7 @@ def callback(ch, method, properties, body):
         logData(pastTime, receivedAmount)
         receivedAmount = 0
         pastTime += 1
-        if pastTime >= 10:
+        if pastTime >= 601:
             connection.close()
 
 
