@@ -54,6 +54,8 @@ def callback(ch, method, properties, body):
         logData(pastTime, receivedAmount)
         receivedAmount = 0
         pastTime += 1
+        if pastTime >= 10:
+            connection.close()
 
 
     # # The beginning of one sending burst
@@ -80,7 +82,8 @@ def logData(pastTime, messageAmount):
         pastTime))
     print("[x] There are %s messages remaining in the queue." % (result.method.message_count))
 
+channel.basic_qos(prefetch_count=1)
 channel.basic_consume(
-    queue=queue_name, on_message_callback=callback, auto_ack= False)
+    queue=queue_name, on_message_callback=callback, auto_ack= True)
 
 channel.start_consuming()
