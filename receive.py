@@ -80,7 +80,6 @@ def logData(pastTime, messageAmount):
         pastTime))
     print("[x] There are %s messages remaining in the queue." % (result.method.message_count))
 
-channel.basic_qos(prefetch_count=1)
 channel.basic_consume(
     queue=queue_name, on_message_callback=callback, auto_ack= True)
 
