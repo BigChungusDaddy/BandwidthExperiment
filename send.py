@@ -9,7 +9,7 @@ class Sender:
         self.messages = self.createMessage(self.messageSize)
         # Interval of how much the sender needs to wait after finish one round of sending.
         self.waitTime = 0.1
-        self.secToRun = 10
+        self.secToRun = 600
         self.numOfRepeat = 1
         self.messageAmount = 0
         self.sendStarted = False
