@@ -81,6 +81,6 @@ def logData(pastTime, messageAmount):
     print("[x] There are %s messages remaining in the queue." % (result.method.message_count))
 
 channel.basic_consume(
-    queue=queue_name, on_message_callback=callback, auto_ack= True)
+    queue=queue_name, on_message_callback=callback, auto_ack= False)
 
 channel.start_consuming()
