@@ -16,7 +16,7 @@ class Sender:
         self.credential = pika.PlainCredentials('sender', 'thisissender')
         # Need to change the connection parameter
         self.connection = pika.BlockingConnection(
-            pika.ConnectionParameters(host='192.168.1.1', credentials= self.credential))
+            pika.ConnectionParameters(host='172.16.0.1', credentials= self.credential))
         self.channel = self.connection.channel()
         self.channel.exchange_declare(exchange = 'bandwidthExperiment', exchange_type='fanout')
         with open('data.csv','w', newline='') as datacsv:
